@@ -111,7 +111,7 @@ namespace ImTerm {
 		// shows the terminal. Call at each frame (in a more ImGui style, this would be something like ImGui::terminal(....);
 		// returns true if the terminal thinks it should still be displayed next frame, false if it thinks it should be hidden
 		// return value is true except if a command required a close, or if the "escape" key was pressed.
-		bool show(const std::vector<config_panels>& panels_order = DEFAULT_ORDER) noexcept;
+		bool show(const std::string& window_name = "", const std::vector<config_panels>& panels_order = DEFAULT_ORDER) noexcept;
 
 		// returns the command line history
 		const std::vector<std::string>& get_history() const noexcept {

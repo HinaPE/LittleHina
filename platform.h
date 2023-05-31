@@ -20,6 +20,11 @@ class Platform
 public:
 	void launch(const std::function<void()> &update);
 
+	std::vector<std::function<void(int, int, int, int)>> _key_callbacks;
+	std::vector<std::function<void(int, int, int)>> _mouse_callbacks;
+	std::vector<std::function<void(double, double)>> _scroll_callbacks;
+	std::vector<std::function<void(double, double)>> _cursor_callbacks;
+
 public:
 	struct Opt
 	{
@@ -30,7 +35,7 @@ public:
 		bool MSAA = true;
 		int MSAA_sample = 4;
 
-		std::array<float, 3> background_color = {1, 1, 1};
+		std::array<float, 3> background_color = {0, 0, 0};
 	} Opt;
 	Platform(int width, int height, const std::string &title = "Kasumi: illumine the endless night");
 	~Platform();
@@ -40,7 +45,9 @@ public:
 	Platform(Platform &&) = delete;
 	auto operator=(const Platform &) -> Platform & = delete;
 	auto operator=(Platform &&) -> Platform & = delete;
+
 	static class GLFWwindow *WINDOW;
+
 	static auto GetCursorPos() -> std::pair<double, double>;
 
 private:
@@ -55,14 +62,10 @@ private:
 	int _width, _height;
 	std::string _current_window_name;
 	class GLFWwindow *_current_window;
-	std::vector<std::function<void(int, int, int, int)>> _key_callbacks;
-	std::vector<std::function<void(int, int, int)>> _mouse_callbacks;
-	std::vector<std::function<void(double, double)>> _scroll_callbacks;
-	std::vector<std::function<void(double, double)>> _cursor_callbacks;
-
 	float _last_update_time = 0.f;
 	bool _without_gui = false;
 };
+
 using PlatformPtr = std::shared_ptr<Platform>;
 } // namespace Kasumi
 
